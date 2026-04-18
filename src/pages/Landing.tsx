@@ -230,7 +230,8 @@ function Slide({
       width: SLIDE_W,
       height: "100%",
       display: "flex",
-      flexDirection: "row",
+      flexDirection: "column",
+      alignItems: "center",
       position: "relative",
       overflow: "hidden",
       flexShrink: 0,
@@ -239,122 +240,19 @@ function Slide({
       <div style={{
         position: "absolute",
         inset: 0,
-        background: `radial-gradient(ellipse at 65% 50%, ${exp.accent}0d 0%, transparent 65%)`,
+        background: `radial-gradient(ellipse at 50% 40%, ${exp.accent}12 0%, transparent 60%)`,
         pointerEvents: "none",
-        transition: "opacity 0.4s",
         opacity: isActive ? 1 : 0,
+        transition: "opacity 0.4s",
       }} />
 
-      {/* Left: info panel */}
+      {/* 3D model — top, 75% wide */}
       <div style={{
-        width: "45%",
-        flexShrink: 0,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        padding: "2rem 2rem 2rem 3rem",
+        width: "75%",
+        flex: "1 1 0",
+        minHeight: 0,
         position: "relative",
-        zIndex: 2,
       }}>
-        {/* Accent bar */}
-        <div style={{
-          width: 3,
-          height: 48,
-          background: exp.accent,
-          boxShadow: `0 0 16px ${exp.accent}`,
-          marginBottom: "1.25rem",
-          borderRadius: 2,
-        }} />
-
-        <div style={{
-          fontFamily: "'VT323', monospace",
-          color: exp.accent,
-          fontSize: "0.8rem",
-          letterSpacing: "0.25em",
-          marginBottom: "0.4rem",
-          opacity: 0.8,
-        }}>
-          OPTION {String(index + 1).padStart(2, "0")} — {exp.tickets} TICKETS
-        </div>
-
-        <h2 style={{
-          fontFamily: "'VT323', monospace",
-          fontSize: "clamp(2.8rem, 6vw, 5rem)",
-          color: "#fff",
-          lineHeight: 0.95,
-          margin: "0 0 0.1rem",
-          letterSpacing: "0.01em",
-          textShadow: isActive ? `0 0 40px ${exp.accent}44` : "none",
-          transition: "text-shadow 0.4s",
-        }}>
-          {exp.title}
-        </h2>
-
-        <div style={{
-          fontFamily: "'VT323', monospace",
-          color: exp.accent,
-          fontSize: "clamp(1.1rem, 2vw, 1.6rem)",
-          letterSpacing: "0.08em",
-          marginBottom: "1.25rem",
-          opacity: 0.75,
-        }}>
-          {exp.subtitle}
-        </div>
-
-        <p style={{
-          fontFamily: "'Special Elite', cursive",
-          color: "#999",
-          fontSize: "clamp(0.8rem, 1.3vw, 0.95rem)",
-          lineHeight: 1.7,
-          marginBottom: "1.75rem",
-          maxWidth: 340,
-        }}>
-          {exp.description}
-        </p>
-
-        <p style={{
-          fontFamily: "'Special Elite', cursive",
-          color: "#444",
-          fontSize: "0.78rem",
-          marginBottom: "1.5rem",
-        }}>
-          +1 ticket if {YOUR_NAME} comes along
-        </p>
-
-        {/* CTA */}
-        <button
-          onClick={onSelect}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          style={{
-            alignSelf: "flex-start",
-            background: hovered ? exp.accent : "transparent",
-            color: hovered ? "#0a0a0a" : exp.accent,
-            fontFamily: "'VT323', monospace",
-            fontSize: "1.4rem",
-            border: `2px solid ${exp.accent}`,
-            padding: "0.5rem 1.75rem",
-            cursor: "pointer",
-            letterSpacing: "0.1em",
-            transition: "background 0.15s, color 0.15s, box-shadow 0.15s",
-            boxShadow: hovered ? `0 0 24px ${exp.accent}88` : "none",
-            filter: exploding ? "brightness(4) saturate(0)" : "none",
-          }}
-        >
-          PICK THIS ONE →
-        </button>
-      </div>
-
-      {/* Right: 3D model */}
-      <div style={{
-        flex: 1,
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        overflow: "hidden",
-      }}>
-        {/* Only render iframe for active + neighbors to avoid 3 simultaneous loads */}
         {isActive && (
           <iframe
             title={exp.sketchfabTitle}
@@ -366,18 +264,11 @@ function Slide({
               width: "100%",
               height: "100%",
               border: "none",
-              opacity: isActive ? 1 : 0,
-              transition: "opacity 0.5s",
             }}
           />
         )}
 
-        {/* Dim overlay when not active */}
-        {!isActive && (
-          <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.6)" }} />
-        )}
-
-        {/* Glitch burst overlay on click */}
+        {/* Glitch burst on click */}
         {exploding && (
           <div style={{
             position: "absolute",
@@ -389,16 +280,104 @@ function Slide({
         )}
       </div>
 
-      {/* Vertical divider */}
+      {/* Text + CTA row — below model */}
       <div style={{
-        position: "absolute",
-        left: "45%",
-        top: "10%",
-        bottom: "10%",
-        width: 1,
-        background: `linear-gradient(180deg, transparent, ${exp.accent}33, transparent)`,
-        pointerEvents: "none",
-      }} />
+        width: "75%",
+        flexShrink: 0,
+        padding: "1rem 0 1.25rem",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "flex-end",
+        gap: "2rem",
+        borderTop: `1px solid ${exp.accent}22`,
+        position: "relative",
+        zIndex: 2,
+      }}>
+        {/* Left accent bar */}
+        <div style={{
+          width: 3,
+          alignSelf: "stretch",
+          background: exp.accent,
+          boxShadow: `0 0 10px ${exp.accent}`,
+          borderRadius: 2,
+          flexShrink: 0,
+        }} />
+
+        {/* Text block */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{
+            fontFamily: "'VT323', monospace",
+            color: exp.accent,
+            fontSize: "0.75rem",
+            letterSpacing: "0.25em",
+            opacity: 0.7,
+            marginBottom: "0.2rem",
+          }}>
+            OPTION {String(index + 1).padStart(2, "0")} — {exp.tickets} TICKETS
+          </div>
+
+          <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", flexWrap: "wrap" }}>
+            <h2 style={{
+              fontFamily: "'VT323', monospace",
+              fontSize: "clamp(2rem, 4vw, 3.5rem)",
+              color: "#fff",
+              lineHeight: 1,
+              margin: 0,
+              textShadow: isActive ? `0 0 30px ${exp.accent}44` : "none",
+              transition: "text-shadow 0.4s",
+            }}>
+              {exp.title}
+            </h2>
+            <span style={{
+              fontFamily: "'VT323', monospace",
+              color: exp.accent,
+              fontSize: "clamp(1rem, 1.8vw, 1.4rem)",
+              opacity: 0.7,
+              letterSpacing: "0.06em",
+            }}>
+              {exp.subtitle}
+            </span>
+          </div>
+
+          <p style={{
+            fontFamily: "'Special Elite', cursive",
+            color: "#888",
+            fontSize: "clamp(0.75rem, 1.1vw, 0.88rem)",
+            lineHeight: 1.6,
+            margin: "0.4rem 0 0",
+          }}>
+            {exp.description}
+            <span style={{ color: "#3a3a3a", marginLeft: "0.5rem" }}>
+              +1 if {YOUR_NAME} comes
+            </span>
+          </p>
+        </div>
+
+        {/* CTA */}
+        <button
+          onClick={onSelect}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          style={{
+            flexShrink: 0,
+            alignSelf: "center",
+            background: hovered ? exp.accent : "transparent",
+            color: hovered ? "#0a0a0a" : exp.accent,
+            fontFamily: "'VT323', monospace",
+            fontSize: "1.3rem",
+            border: `2px solid ${exp.accent}`,
+            padding: "0.45rem 1.5rem",
+            cursor: "pointer",
+            letterSpacing: "0.1em",
+            transition: "background 0.15s, color 0.15s, box-shadow 0.15s",
+            boxShadow: hovered ? `0 0 20px ${exp.accent}88` : "none",
+            filter: exploding ? "brightness(4) saturate(0)" : "none",
+            whiteSpace: "nowrap",
+          }}
+        >
+          PICK THIS →
+        </button>
+      </div>
     </div>
   );
 }
