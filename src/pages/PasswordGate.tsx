@@ -9,8 +9,9 @@ function useDVD(boxW: number, boxH: number) {
   const [pos, setPos] = useState({ x: 120, y: 80 });
 
   const [color, setColor] = useState(PALETTE[0]);
+  const speed = isMobile() ? 1.2 : 2.2;
   const posRef = useRef({ x: 120, y: 80 });
-  const velRef = useRef({ x: 2.2, y: 1.7 });
+  const velRef = useRef({ x: speed, y: speed * 0.77 });
   const rafRef = useRef<number>(0);
 
   useEffect(() => {
