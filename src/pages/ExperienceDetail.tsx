@@ -60,21 +60,22 @@ export default function ExperienceDetail() {
         <h2 style={{
           fontFamily: "'VT323', monospace",
           color: "#e0e0e0",
-          fontSize: "clamp(1rem, 3vw, 1.6rem)",
+          fontSize: "clamp(1rem, 4vw, 1.6rem)",
           margin: 0,
           lineHeight: 1,
-          whiteSpace: "nowrap",
+          flex: "1 1 auto",
+          minWidth: 0,
           overflow: "hidden",
           textOverflow: "ellipsis",
-          maxWidth: "30vw",
+          whiteSpace: "nowrap",
         }}>
           {exp.title} <span style={{ color: exp.accent, opacity: 0.6, fontSize: "0.7em" }}>{exp.subtitle}</span>
         </h2>
-        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "1rem" }}>
+        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0 }}>
           <span style={{
             fontFamily: "'VT323', monospace",
             color: exp.accent,
-            fontSize: "clamp(0.75rem, 2vw, 0.95rem)",
+            fontSize: "clamp(0.7rem, 2vw, 0.95rem)",
             opacity: 0.6,
             whiteSpace: "nowrap",
           }}>
@@ -88,18 +89,18 @@ export default function ExperienceDetail() {
             onMouseLeave={() => setHovered(false)}
             style={{
               fontFamily: "'VT323', monospace",
-              fontSize: "1rem",
+              fontSize: "clamp(0.8rem, 2.5vw, 1rem)",
               color: hovered ? "#0a0a0a" : exp.accent,
               background: hovered ? exp.accent : "transparent",
               border: `1px solid ${exp.accent}`,
-              padding: "0.2rem 0.75rem",
+              padding: "0.2rem 0.6rem",
               textDecoration: "none",
               whiteSpace: "nowrap",
               transition: "background 0.15s, color 0.15s",
               letterSpacing: "0.05em",
             }}
           >
-            ↗ OPEN IN NEW TAB
+            ↗ OPEN
           </a>
         </div>
       </div>
@@ -208,14 +209,6 @@ export default function ExperienceDetail() {
           VISIT SITE →
         </a>
 
-        <p style={{
-          fontFamily: "'Special Elite', cursive",
-          color: "#2a2a2a",
-          fontSize: "0.7rem",
-          margin: 0,
-        }}>
-          opens in a new tab
-        </p>
       </div>
     </div>
   );
