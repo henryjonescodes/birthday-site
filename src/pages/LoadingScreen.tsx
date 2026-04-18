@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // fallback when used standalone
 
 // ─── Phase 1: XP-style chunky progress bar ───────────────────────────────────
 const XP_STEPS = [
@@ -162,14 +162,16 @@ function Phase3({ onDone }: { onDone: () => void }) {
 }
 
 // ─── Orchestrator ─────────────────────────────────────────────────────────────
-export default function LoadingScreen() {
+export default function LoadingScreen({ onDone }: { onDone?: () => void }) {
   const navigate = useNavigate();
   const [phase, setPhase] = useState<1 | 3>(1);
-  const [fading, setFading] = useState(false);
 
   function goHome() {
-    setFading(true);
-    setTimeout(() => navigate("/home"), 700);
+    if (onDone) {
+      onDone();
+    } else {
+      navigate("/home");
+    }
   }
 
   return (
@@ -182,8 +184,6 @@ export default function LoadingScreen() {
         alignItems: "center",
         justifyContent: "center",
         padding: "2rem",
-        opacity: fading ? 0 : 1,
-        transition: "opacity 0.7s ease",
       }}
     >
       {phase === 1 && <Phase1 onDone={() => setPhase(3)} />}

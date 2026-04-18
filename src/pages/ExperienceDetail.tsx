@@ -99,17 +99,6 @@ export default function ExperienceDetail() {
         </div>
       </div>
 
-      {/* Iframe */}
-      <iframe
-        src={exp.url}
-        title={exp.title}
-        style={{
-          flex: 1,
-          width: "100%",
-          border: "none",
-          minHeight: "calc(100vh - 56px)",
-        }}
-      />
     </div>
   );
 }
