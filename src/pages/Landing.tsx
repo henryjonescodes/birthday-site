@@ -412,7 +412,7 @@ function Slide({
             }}
             className="cta-desktop"
           >
-            PICK THIS →
+            {exp.ctaLabel} →
           </button>
         </div>
 

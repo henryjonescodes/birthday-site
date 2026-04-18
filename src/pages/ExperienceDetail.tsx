@@ -2,11 +2,14 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { EXPERIENCES, YOUR_NAME } from "../config";
 
+const isDesktop = () => window.innerWidth >= 768;
+
 export default function ExperienceDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const exp = EXPERIENCES.find((e) => e.id === id);
   const [hovered, setHovered] = useState(false);
+  const desktop = isDesktop();
 
   if (!exp) {
     return (
@@ -74,7 +77,7 @@ export default function ExperienceDetail() {
         </h2>
 
         {/* Desktop-only: ticket count + open button */}
-        <div className="detail-meta" style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.75rem", flexShrink: 0 }}>
+        {desktop && <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.75rem", flexShrink: 0 }}>
           <span style={{
             fontFamily: "'VT323', monospace",
             color: exp.accent,
@@ -105,7 +108,7 @@ export default function ExperienceDetail() {
           >
             ↗ OPEN
           </a>
-        </div>
+        </div>}
       </div>
 
       {/* Hero body */}
