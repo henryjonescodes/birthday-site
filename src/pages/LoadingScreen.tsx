@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import type { CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 
 // ─── Phase 1a: XP loader — runs to ~52% then "crashes" ───────────────────────
@@ -41,14 +42,40 @@ function Phase1A({ onDone }: { onDone: (frozenAt: number) => void }) {
   return <XPWindow step={STEPS_A[step]} progress={progress} />;
 }
 
-// ─── Phase 2: BSOD ────────────────────────────────────────────────────────────
+// ─── Phase 2: BSOD — lines print in ──────────────────────────────────────────
+const BSOD_LINES: { text: string; style?: CSSProperties }[] = [
+  { text: "A problem has been detected and Windows has been shut down to prevent damage to your birthday.", style: { fontSize: "1rem", marginBottom: "1rem" } },
+  { text: "BIRTHDAY_INIT_EXCEPTION", style: { fontSize: "1.5rem", letterSpacing: "0.05em", marginBottom: "1rem" } },
+  { text: "If this is the first time you've seen this error screen, restart your excitement." },
+  { text: "If this screen appears again, follow these steps:" },
+  { text: "" },
+  { text: "Check to make sure any new hardware or software is properly installed." },
+  { text: "If this is a new installation, ask your gift-giver for any updates you might need." },
+  { text: "" },
+  { text: "Technical information:" },
+  { text: "*** STOP: 0x0000BDAY (0x00000018, 0xASHA0000, 0x48455259, 0x0000GIFT)", style: { color: "#fff" } },
+  { text: "" },
+  { text: "Running diagnostic repair... please wait", style: { color: "#aaa", fontSize: "0.9rem" } },
+];
+
 function PhaseBSOD({ onDone }: { onDone: () => void }) {
-  const [visible, setVisible] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const show = setTimeout(() => setVisible(true), 80);
-    const next = setTimeout(onDone, 2600);
-    return () => { clearTimeout(show); clearTimeout(next); };
+    let i = 0;
+    const delays = [80, 300, 250, 200, 50, 220, 220, 50, 180, 300, 80, 500];
+
+    function addLine() {
+      if (i >= BSOD_LINES.length) {
+        setTimeout(onDone, 900);
+        return;
+      }
+      setCount(i + 1);
+      setTimeout(addLine, delays[i] ?? 200);
+      i++;
+    }
+    const t = setTimeout(addLine, 120);
+    return () => clearTimeout(t);
   }, [onDone]);
 
   return (
@@ -59,44 +86,31 @@ function PhaseBSOD({ onDone }: { onDone: () => void }) {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      padding: "2rem",
-      opacity: visible ? 1 : 0,
-      transition: "opacity 0.12s",
+      padding: "2.5rem",
     }}>
-      <div style={{ maxWidth: 580, width: "100%", color: "#fff", fontFamily: "'VT323', monospace" }}>
-        <p style={{ fontSize: "1.1rem", marginBottom: "1.5rem" }}>
-          A problem has been detected and Windows has been shut down to prevent damage to your birthday.
-        </p>
-        <p style={{ fontSize: "1.5rem", letterSpacing: "0.05em", marginBottom: "1.5rem" }}>
-          BIRTHDAY_INIT_EXCEPTION
-        </p>
-        <p style={{ fontSize: "0.95rem", color: "#ccc", lineHeight: 1.7 }}>
-          If this is the first time you've seen this error screen, restart your excitement.<br />
-          If this screen appears again, follow these steps:<br /><br />
-          Check to make sure any new hardware or software is properly installed.<br />
-          If this is a new installation, ask your gift-giver for any updates you might need.<br /><br />
-          Technical information:<br />
-          *** STOP: 0x0000BDAY (0x00000018, 0xASHA0000, 0x48455259, 0x0000GIFT)
-        </p>
-        <p style={{ fontSize: "0.9rem", color: "#aaa", marginTop: "1.5rem" }}>
-          Running diagnostic repair... please wait
-        </p>
+      <div style={{ maxWidth: 580, width: "100%", color: "#ccc", fontFamily: "'VT323', monospace", fontSize: "0.95rem", lineHeight: 1.7 }}>
+        {BSOD_LINES.slice(0, count).map((l, i) =>
+          l.text === "" ? <div key={i} style={{ height: "0.8rem" }} /> : (
+            <div key={i} style={l.style}>{l.text}</div>
+          )
+        )}
       </div>
     </div>
   );
 }
 
-// ─── Phase 3: Modem repair terminal ──────────────────────────────────────────
-const REPAIR_LINES = [
-  "> DIAGNOSTIC INITIATED",
-  "> Scanning birthday_core.dll...",
-  "> ERROR: vibes.sys corrupted at 0x52",
-  "> Attempting repair...",
-  "> Downloading patch_v18.bin........",
-  "> Checksum OK",
-  "> Patching memory blocks... done",
-  "> Restarting birthday sequence",
-  "> REPAIR COMPLETE. Resuming.",
+// ─── Phase 3: Repair terminal — deliberate pauses ────────────────────────────
+const REPAIR_LINES: { text: string; delay: number }[] = [
+  { text: "> DIAGNOSTIC INITIATED",                         delay: 300  },
+  { text: "> Scanning birthday_core.dll...",                delay: 600  },
+  { text: "> ERROR: vibes.sys corrupted at 0x52",           delay: 250  },
+  { text: "> Isolating corrupt segment...",                  delay: 900  },
+  { text: "> Downloading patch_v18.bin............",         delay: 1100 },
+  { text: "> Checksum OK",                                  delay: 220  },
+  { text: "> Patching memory blocks [===========] done",    delay: 950  },
+  { text: "> Flushing vibes cache...",                      delay: 500  },
+  { text: "> Restarting birthday sequence",                 delay: 400  },
+  { text: "> REPAIR COMPLETE. Resuming.",                   delay: 200  },
 ];
 
 function PhaseRepair({ onDone }: { onDone: () => void }) {
@@ -105,19 +119,19 @@ function PhaseRepair({ onDone }: { onDone: () => void }) {
 
   useEffect(() => {
     let i = 0;
-    const delays = REPAIR_LINES.map(() => 200 + Math.random() * 180);
 
     function addLine() {
       if (i >= REPAIR_LINES.length) {
-        setTimeout(onDone, 700);
+        setTimeout(onDone, 800);
         return;
       }
-      setVisibleLines((l) => [...l, REPAIR_LINES[i]]);
-      setTimeout(addLine, delays[i]);
+      const { text, delay } = REPAIR_LINES[i];
+      setVisibleLines((l) => [...l, text]);
       i++;
+      setTimeout(addLine, delay);
     }
 
-    const t = setTimeout(addLine, 300);
+    const t = setTimeout(addLine, 400);
     return () => clearTimeout(t);
   }, [onDone]);
 
@@ -167,10 +181,13 @@ const STEPS_B = [
 function Phase1B({ startAt, onDone }: { startAt: number; onDone: () => void }) {
   const [step, setStep] = useState(0);
   const [progress, setProgress] = useState(startAt);
+  const doneRef = useRef(false);
 
   useEffect(() => {
     const duration = 2800;
+    const remaining = 100 - startAt;
     const stepMs = duration / STEPS_B.length;
+    const tickMs = duration / (remaining / 1.4);
 
     const stepTimer = setInterval(
       () => setStep((s) => Math.min(s + 1, STEPS_B.length - 1)),
@@ -179,17 +196,18 @@ function Phase1B({ startAt, onDone }: { startAt: number; onDone: () => void }) {
     const progTimer = setInterval(() => {
       setProgress((p) => {
         const next = Math.min(p + 1.4, 100);
-        if (next >= 100) {
+        if (next >= 100 && !doneRef.current) {
+          doneRef.current = true;
           clearInterval(progTimer);
           clearInterval(stepTimer);
-          setTimeout(onDone, 400);
+          setTimeout(onDone, 500);
         }
         return next;
       });
-    }, duration / 48);
+    }, tickMs);
 
     return () => { clearInterval(stepTimer); clearInterval(progTimer); };
-  }, [onDone]);
+  }, [onDone, startAt]);
 
   return <XPWindow step={STEPS_B[step]} progress={progress} resumed />;
 }
