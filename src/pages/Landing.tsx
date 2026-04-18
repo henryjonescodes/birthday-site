@@ -254,22 +254,21 @@ function Slide({
         position: "relative",
         overflow: "hidden",
       }}>
-        {isActive && (
-          <iframe
-            title={exp.sketchfabTitle}
-            src={exp.sketchfabSrc}
-            frameBorder="0"
-            allowFullScreen
-            allow="autoplay; fullscreen; xr-spatial-tracking"
-            style={{
-              width: "133%",
-              height: "133%",
-              border: "none",
-              transform: "scale(0.75) translate(-22%, -22%)",
-              transformOrigin: "top left",
-            }}
-          />
-        )}
+        <iframe
+          title={exp.sketchfabTitle}
+          src={exp.sketchfabSrc}
+          frameBorder="0"
+          allowFullScreen
+          allow="autoplay; fullscreen; xr-spatial-tracking"
+          style={{
+            width: "133%",
+            height: "133%",
+            border: "none",
+            transform: "scale(0.75) translate(-22%, -22%)",
+            transformOrigin: "top left",
+            visibility: isActive ? "visible" : "hidden",
+          }}
+        />
 
         {/* Glitch burst on click */}
         {exploding && (
