@@ -12,7 +12,6 @@ export const EXPERIENCES = [
     details: {
       location: "Jackson, NJ — 1 Six Flags Blvd",
       prep: "Wear sneakers you don't mind losing on a loop. Maybe skip the funnel cake until after.",
-      notes: "Also includes Wild Safari drive-through wildlife park — surprise bonus.",
     },
     sketchfabSrc: "https://sketchfab.com/models/2786497437974a739ecb4cbb1a17887e/embed?transparent=1&autostart=1&autospin=1&preload=1&ui_animations=0&zoom=0.5&camera_orbit=0deg+75deg+200%25",
     sketchfabTitle: "roller coaster car",
@@ -28,8 +27,7 @@ export const EXPERIENCES = [
     tickets: 2,
     details: {
       location: "Paramus, NJ — 211 E Route 4",
-      prep: "Wear tight-fitting clothes and remove jewelry. You will look absolutely unhinged. Embrace it.",
-      notes: "Total session ~2hrs including training. You get multiple flight rounds in the tunnel.",
+      prep: "Wear tight-fitting clothes, remove jewelry, and prepare to make a face that no one should ever photograph.",
     },
     sketchfabSrc: "https://sketchfab.com/models/6ceb43dd3c674e9684fc11dc802c1021/embed?camera=0&transparent=1&autostart=1&autospin=1&preload=1&ui_animations=0&zoom=0.5&camera_orbit=0deg+75deg+200%25",
     sketchfabTitle: "Wingsuit Lowpoly",
@@ -45,8 +43,7 @@ export const EXPERIENCES = [
     tickets: 2,
     details: {
       location: "West Berlin, NJ — 100 Pinedge Dr",
-      prep: "Closed-toe shoes required. Also required: willingness to operate a machine that weighs more than a house.",
-      notes: "You drive real excavators, bulldozers, and dump trucks. Not simulators. Real ones.",
+      prep: "Closed-toe shoes required. Also required: the confidence to park a bulldozer on your first try.",
     },
     sketchfabSrc: "https://sketchfab.com/models/ff6d27a70a9e4e51996d26eb149be081/embed?autospin=1&autostart=1&camera=0&transparent=1&preload=1&ui_animations=0&zoom=0.5",
     sketchfabTitle: "Front loader 0",

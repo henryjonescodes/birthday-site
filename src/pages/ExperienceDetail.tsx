@@ -179,13 +179,13 @@ export default function ExperienceDetail() {
             maxWidth: 520,
             border: `1px solid ${exp.accent}22`,
             padding: "1.1rem 1.25rem",
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.6rem",
+            display: "grid",
+            gridTemplateColumns: "max-content 1fr",
+            gap: "0.55rem 0.85rem",
+            alignItems: "start",
           }}>
-            <DetailRow accent={exp.accent} label="📍 WHERE" value={exp.details.location} />
-            <DetailRow accent={exp.accent} label="🎒 PREP" value={exp.details.prep} />
-            <DetailRow accent={exp.accent} label="★ NOTE" value={exp.details.notes} />
+            <DetailRow accent={exp.accent} label="WHERE" value={exp.details.location} />
+            <DetailRow accent={exp.accent} label="PREP" value={exp.details.prep} />
           </div>
         )}
 
@@ -239,7 +239,7 @@ export default function ExperienceDetail() {
 
 function DetailRow({ accent, label, value }: { accent: string; label: string; value: string }) {
   return (
-    <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+    <>
       <span style={{
         fontFamily: "'VT323', monospace",
         color: accent,
@@ -247,8 +247,7 @@ function DetailRow({ accent, label, value }: { accent: string; label: string; va
         letterSpacing: "0.15em",
         opacity: 0.7,
         whiteSpace: "nowrap",
-        paddingTop: "0.1rem",
-        flexShrink: 0,
+        paddingTop: "0.15rem",
       }}>
         {label}
       </span>
@@ -260,6 +259,6 @@ function DetailRow({ accent, label, value }: { accent: string; label: string; va
       }}>
         {value}
       </span>
-    </div>
+    </>
   );
 }
