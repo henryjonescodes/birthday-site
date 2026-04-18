@@ -261,11 +261,9 @@ function Slide({
           allowFullScreen
           allow="autoplay; fullscreen; xr-spatial-tracking"
           style={{
-            width: "133%",
-            height: "133%",
+            width: "100%",
+            height: "100%",
             border: "none",
-            transform: "scale(0.75) translate(-22%, -22%)",
-            transformOrigin: "top left",
             visibility: isActive ? "visible" : "hidden",
           }}
         />
