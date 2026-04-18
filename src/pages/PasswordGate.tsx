@@ -87,8 +87,8 @@ const HINTS = [
   { after: 5,  text: "by the way — it's a number, not a word." },
   { after: 10, text: "think about your birthday. not today's — yours." },
   { after: 15, text: "your birthday, 8 digits, written completely backwards." },
-  { after: 20, text: "mmddyyyy → flip the whole thing. your birthday." },
-  { after: 25, text: "it's 80020240. I'm not even sorry." },
+  { after: 20, text: "it's a date Carly did a lot of work on." },
+  { after: 25, text: "a date like today... but when Katy Perry kissed a girl. but backwards." },
 ];
 
 export default function PasswordGate() {
