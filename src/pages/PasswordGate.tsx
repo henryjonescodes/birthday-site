@@ -62,14 +62,10 @@ const isMobile = () => window.innerWidth < 640;
 const DENIED_MESSAGES = [
   "ACCESS DENIED. try again.",
   "hmm, not quite.",
-  "it's not a word, just so you know.",
   "still no — but I believe in you.",
   "nope! you're probably overthinking it.",
   "not that one. keep going.",
   "still no, but you're trying and that matters.",
-  "have you tried thinking... backwards?",
-  "not quite backwards enough.",
-  "do you know your own birthday? (genuine question)",
   "I believe in you. this is taking a while but I believe in you.",
   "still here, still rooting.",
   "you're so close. probably.",
@@ -78,7 +74,6 @@ const DENIED_MESSAGES = [
   "read the hint. slowly.",
   "almost there. I can feel it.",
   "the hint is basically spelling it out at this point.",
-  "...ok the next one just gives it away.",
   "no notes. read the hint.",
   "that's it. that's literally the answer in the hint.",
 ];
