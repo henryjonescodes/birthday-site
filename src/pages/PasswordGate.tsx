@@ -59,10 +59,29 @@ function useDVD(boxW: number, boxH: number) {
 
 const isMobile = () => window.innerWidth < 640;
 
+const DENIED_MESSAGES = [
+  "ACCESS DENIED. try again.",
+  "nope. still wrong.",
+  "are you even trying?",
+  "that's not it either. wow.",
+  "ok this is getting embarrassing.",
+  "do you... not know your own birthday?",
+  "I'm actually impressed by this.",
+  "we could be here all day.",
+  "hint: it's not that.",
+  "I'm not going to tell you. but it's not that.",
+  "have you considered giving up?",
+  "bestie. BESTIE.",
+  "ok I'm genuinely worried about you.",
+  "at this point just ask Henry.",
+  "ACCESS DENIED. (obviously)",
+];
+
 export default function PasswordGate() {
   const [input, setInput] = useState("");
   const [shaking, setShaking] = useState(false);
   const [error, setError] = useState(false);
+  const [attemptCount, setAttemptCount] = useState(0);
   const unlock = useAuthStore((s) => s.unlock);
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -89,9 +108,10 @@ export default function PasswordGate() {
     } else {
       setError(true);
       setShaking(true);
+      setAttemptCount((n) => n + 1);
       setInput("");
       setTimeout(() => setShaking(false), 600);
-      setTimeout(() => setError(false), 2000);
+      setTimeout(() => setError(false), 2500);
       inputRef.current?.focus();
     }
   }
@@ -176,7 +196,7 @@ export default function PasswordGate() {
 
         {error && (
           <p style={{ color: "#ff003c", fontFamily: "'VT323', monospace", fontSize: "1rem", marginTop: "0.4rem" }}>
-            ACCESS DENIED. try again.
+            {DENIED_MESSAGES[Math.min(attemptCount - 1, DENIED_MESSAGES.length - 1)]}
           </p>
         )}
 
