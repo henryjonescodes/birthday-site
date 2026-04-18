@@ -252,6 +252,7 @@ function Slide({
         flex: "1 1 0",
         minHeight: 0,
         position: "relative",
+        overflow: "hidden",
       }}>
         {isActive && (
           <iframe
@@ -261,9 +262,11 @@ function Slide({
             allowFullScreen
             allow="autoplay; fullscreen; xr-spatial-tracking"
             style={{
-              width: "100%",
-              height: "100%",
+              width: "133%",
+              height: "133%",
               border: "none",
+              transform: "scale(0.75) translate(-22%, -22%)",
+              transformOrigin: "top left",
             }}
           />
         )}
