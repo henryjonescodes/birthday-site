@@ -99,6 +99,119 @@ export default function ExperienceDetail() {
         </div>
       </div>
 
+      {/* Hero body */}
+      <div className="fade-in" style={{
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "3rem 2rem",
+        gap: "2rem",
+        position: "relative",
+      }}>
+        {/* Accent glow */}
+        <div style={{
+          position: "absolute",
+          inset: 0,
+          background: `radial-gradient(ellipse at 50% 40%, ${exp.accent}0e 0%, transparent 60%)`,
+          pointerEvents: "none",
+        }} />
+
+        <div style={{ textAlign: "center", position: "relative" }}>
+          <div style={{
+            width: 40,
+            height: 3,
+            background: exp.accent,
+            boxShadow: `0 0 12px ${exp.accent}`,
+            margin: "0 auto 1.25rem",
+            borderRadius: 2,
+          }} />
+          <h1 style={{
+            fontFamily: "'VT323', monospace",
+            fontSize: "clamp(3rem, 8vw, 6rem)",
+            color: "#fff",
+            margin: "0 0 0.15rem",
+            lineHeight: 1,
+            textShadow: `0 0 40px ${exp.accent}44`,
+          }}>
+            {exp.title}
+          </h1>
+          <div style={{
+            fontFamily: "'VT323', monospace",
+            color: exp.accent,
+            fontSize: "1.4rem",
+            letterSpacing: "0.1em",
+            opacity: 0.75,
+          }}>
+            {exp.subtitle}
+          </div>
+        </div>
+
+        <p style={{
+          fontFamily: "'Special Elite', cursive",
+          color: "#999",
+          fontSize: "clamp(0.9rem, 1.5vw, 1.1rem)",
+          lineHeight: 1.8,
+          maxWidth: 520,
+          textAlign: "center",
+          margin: 0,
+        }}>
+          {exp.description}
+        </p>
+
+        <div style={{
+          fontFamily: "'VT323', monospace",
+          color: "#444",
+          fontSize: "1rem",
+          letterSpacing: "0.1em",
+          textAlign: "center",
+        }}>
+          {exp.tickets} TICKETS &nbsp;·&nbsp; +1 IF {YOUR_NAME.toUpperCase()} COMES
+        </div>
+
+        <a
+          href={exp.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onMouseEnter={(e) => {
+            const el = e.currentTarget as HTMLAnchorElement;
+            el.style.background = exp.accent;
+            el.style.color = "#0a0a0a";
+            el.style.boxShadow = `0 0 28px ${exp.accent}88`;
+          }}
+          onMouseLeave={(e) => {
+            const el = e.currentTarget as HTMLAnchorElement;
+            el.style.background = "transparent";
+            el.style.color = exp.accent;
+            el.style.boxShadow = "none";
+          }}
+          style={{
+            display: "inline-block",
+            background: "transparent",
+            color: exp.accent,
+            fontFamily: "'VT323', monospace",
+            fontSize: "1.6rem",
+            border: `2px solid ${exp.accent}`,
+            padding: "0.6rem 2.5rem",
+            cursor: "pointer",
+            letterSpacing: "0.12em",
+            textDecoration: "none",
+            transition: "background 0.15s, color 0.15s, box-shadow 0.15s",
+          }}
+        >
+          VISIT SITE →
+        </a>
+
+        <p style={{
+          fontFamily: "'Special Elite', cursive",
+          color: "#2a2a2a",
+          fontSize: "0.7rem",
+          margin: 0,
+        }}>
+          opens in a new tab
+        </p>
+      </div>
     </div>
   );
 }
