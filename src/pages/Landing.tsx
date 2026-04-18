@@ -344,7 +344,7 @@ function Slide({
           OPTION {String(index + 1).padStart(2, "0")} — {exp.tickets} TICKETS + {YOUR_NAME.toUpperCase()}
         </div>
 
-        {/* Title row with CTA */}
+        {/* Title row */}
         <div
           style={{
             display: "flex",
@@ -388,7 +388,7 @@ function Slide({
           >
             {exp.subtitle}
           </span>
-          {/* CTA pushed to end */}
+          {/* CTA inline on desktop only */}
           <button
             onClick={onSelect}
             onMouseEnter={() => setHovered(true)}
@@ -396,6 +396,7 @@ function Slide({
             style={{
               marginLeft: "auto",
               flexShrink: 0,
+              display: "none",
               background: hovered ? exp.accent : "transparent",
               color: hovered ? "#0a0a0a" : exp.accent,
               fontFamily: "'VT323', monospace",
@@ -409,6 +410,7 @@ function Slide({
               filter: exploding ? "brightness(4) saturate(0)" : "none",
               whiteSpace: "nowrap",
             }}
+            className="cta-desktop"
           >
             PICK THIS →
           </button>
@@ -425,6 +427,30 @@ function Slide({
         >
           {exp.description}
         </p>
+
+        {/* CTA full-width on mobile, hidden on desktop */}
+        <button
+          onClick={onSelect}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          className="cta-mobile"
+          style={{
+            width: "100%",
+            background: hovered ? exp.accent : "transparent",
+            color: hovered ? "#0a0a0a" : exp.accent,
+            fontFamily: "'VT323', monospace",
+            fontSize: "1.3rem",
+            border: `2px solid ${exp.accent}`,
+            padding: "0.6rem",
+            cursor: "pointer",
+            letterSpacing: "0.1em",
+            transition: "background 0.15s, color 0.15s, box-shadow 0.15s",
+            boxShadow: hovered ? `0 0 20px ${exp.accent}88` : "none",
+            filter: exploding ? "brightness(4) saturate(0)" : "none",
+          }}
+        >
+          PICK THIS →
+        </button>
       </div>
     </div>
   );

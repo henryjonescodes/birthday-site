@@ -108,6 +108,15 @@ body {
   100% { transform: translateX(4px) scaleX(1.02); opacity: 0.5; }
 }
 
+/* CTA button responsive visibility */
+.cta-desktop { display: none !important; }
+.cta-mobile  { display: block; }
+
+@media (min-width: 640px) {
+  .cta-desktop { display: inline-block !important; }
+  .cta-mobile  { display: none !important; }
+}
+
 .scanlines::after {
   content: '';
   position: fixed;
