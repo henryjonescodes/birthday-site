@@ -109,7 +109,11 @@ body {
 }
 
 /* Detail page header responsive */
-.detail-title { flex: 1 1 auto; }
+.detail-title { flex: 1 1 auto; text-align: right; }
+
+@media (min-width: 768px) {
+  .detail-title { text-align: left; }
+}
 
 /* CTA button responsive visibility */
 .cta-desktop { display: none !important; }
