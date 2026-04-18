@@ -10,7 +10,7 @@ export const EXPERIENCES = [
     ctaLabel: "Buckle up",
     tickets: 2,
     details: {
-      location: "Jackson, NJ — 1 Six Flags Blvd",
+      location: "Jackson, NJ",
       prep: "Wear sneakers you don't mind losing on a loop. Maybe skip the funnel cake until after.",
     },
     sketchfabSrc: "https://sketchfab.com/models/2786497437974a739ecb4cbb1a17887e/embed?transparent=1&autostart=1&autospin=1&preload=1&ui_animations=0&zoom=0.5&camera_orbit=0deg+75deg+200%25",
@@ -26,7 +26,7 @@ export const EXPERIENCES = [
     ctaLabel: "Go flying",
     tickets: 2,
     details: {
-      location: "Paramus, NJ — 211 E Route 4",
+      location: "Paramus, NJ",
       prep: "Wear tight-fitting clothes, remove jewelry, and prepare to make a face that no one should ever photograph.",
     },
     sketchfabSrc: "https://sketchfab.com/models/6ceb43dd3c674e9684fc11dc802c1021/embed?camera=0&transparent=1&autostart=1&autospin=1&preload=1&ui_animations=0&zoom=0.5&camera_orbit=0deg+75deg+200%25",
@@ -42,7 +42,7 @@ export const EXPERIENCES = [
     ctaLabel: "Dig and Crush",
     tickets: 2,
     details: {
-      location: "West Berlin, NJ — 100 Pinedge Dr",
+      location: "West Berlin, NJ",
       prep: "Closed-toe shoes required. Also required: the confidence to park a bulldozer on your first try.",
     },
     sketchfabSrc: "https://sketchfab.com/models/ff6d27a70a9e4e51996d26eb149be081/embed?autospin=1&autostart=1&camera=0&transparent=1&preload=1&ui_animations=0&zoom=0.5",
