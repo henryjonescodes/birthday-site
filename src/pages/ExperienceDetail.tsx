@@ -172,6 +172,23 @@ export default function ExperienceDetail() {
           {exp.description}
         </p>
 
+        {/* Details panel */}
+        {exp.details && (
+          <div style={{
+            width: "100%",
+            maxWidth: 520,
+            border: `1px solid ${exp.accent}22`,
+            padding: "1.1rem 1.25rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.6rem",
+          }}>
+            <DetailRow accent={exp.accent} label="📍 WHERE" value={exp.details.location} />
+            <DetailRow accent={exp.accent} label="🎒 PREP" value={exp.details.prep} />
+            <DetailRow accent={exp.accent} label="★ NOTE" value={exp.details.notes} />
+          </div>
+        )}
+
         <div style={{
           fontFamily: "'VT323', monospace",
           color: "#444",
@@ -216,6 +233,33 @@ export default function ExperienceDetail() {
         </a>
 
       </div>
+    </div>
+  );
+}
+
+function DetailRow({ accent, label, value }: { accent: string; label: string; value: string }) {
+  return (
+    <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+      <span style={{
+        fontFamily: "'VT323', monospace",
+        color: accent,
+        fontSize: "0.75rem",
+        letterSpacing: "0.15em",
+        opacity: 0.7,
+        whiteSpace: "nowrap",
+        paddingTop: "0.1rem",
+        flexShrink: 0,
+      }}>
+        {label}
+      </span>
+      <span style={{
+        fontFamily: "'Special Elite', cursive",
+        color: "#888",
+        fontSize: "0.82rem",
+        lineHeight: 1.5,
+      }}>
+        {value}
+      </span>
     </div>
   );
 }
