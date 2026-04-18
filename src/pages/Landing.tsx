@@ -246,13 +246,12 @@ function Slide({
         transition: "opacity 0.4s",
       }} />
 
-      {/* 3D model — top, 75% wide */}
+      {/* 3D model — top, full width */}
       <div style={{
-        width: "75%",
+        width: "100%",
         flex: "1 1 0",
         minHeight: 0,
         position: "relative",
-        overflow: "hidden",
       }}>
         <iframe
           title={exp.sketchfabTitle}
@@ -282,9 +281,9 @@ function Slide({
 
       {/* Text + CTA row — below model */}
       <div style={{
-        width: "75%",
+        width: "100%",
         flexShrink: 0,
-        padding: "1rem 0 1.25rem",
+        padding: "1rem 2rem 1.25rem",
         display: "flex",
         flexDirection: "row",
         alignItems: "flex-end",
