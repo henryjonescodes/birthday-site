@@ -61,20 +61,34 @@ const isMobile = () => window.innerWidth < 640;
 
 const DENIED_MESSAGES = [
   "ACCESS DENIED. try again.",
-  "nope. still wrong.",
-  "are you even trying?",
-  "that's not it either. wow.",
-  "ok this is getting embarrassing.",
-  "do you... not know your own birthday?",
-  "I'm actually impressed by this.",
-  "we could be here all day.",
-  "hint: it's not that.",
-  "I'm not going to tell you. but it's not that.",
-  "have you considered giving up?",
-  "bestie. BESTIE.",
-  "ok I'm genuinely worried about you.",
-  "at this point just ask Henry.",
-  "ACCESS DENIED. (obviously)",
+  "hmm, not quite.",
+  "it's not a word, just so you know.",
+  "still no — you've got this though.",
+  "nope! but you're probably closer than you think.",
+  "it's a number. that's a free one.",
+  "not that one either.",
+  "have you tried thinking... backwards?",
+  "that's not how backwards works, but almost.",
+  "do you know your own birthday?",
+  "I believe in you. genuinely.",
+  "still rooting for you over here.",
+  "you're so close. I can feel it.",
+  "the hint is trying to help, I promise.",
+  "ok the next hint is a big one.",
+  "8 digits. that's all I'm saying.",
+  "almost there. probably.",
+  "you've got this, I promise.",
+  "just read the hint carefully.",
+  "it's right there, I swear.",
+  "...ok the last hint is basically the answer.",
+];
+
+const HINTS = [
+  { after: 5,  text: "hint: it's a number, not a word." },
+  { after: 10, text: "hint: think about an important date — then flip it." },
+  { after: 15, text: "hint: 8 digits. your birthday, written backwards." },
+  { after: 20, text: "hint: your birthday as mmddyyyy, reversed." },
+  { after: 25, text: "hint: 80020240. you've earned it." },
 ];
 
 export default function PasswordGate() {
@@ -82,6 +96,7 @@ export default function PasswordGate() {
   const [shaking, setShaking] = useState(false);
   const [error, setError] = useState(false);
   const [attemptCount, setAttemptCount] = useState(0);
+  const errorTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const unlock = useAuthStore((s) => s.unlock);
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -111,7 +126,8 @@ export default function PasswordGate() {
       setAttemptCount((n) => n + 1);
       setInput("");
       setTimeout(() => setShaking(false), 600);
-      setTimeout(() => setError(false), 2500);
+      if (errorTimerRef.current) clearTimeout(errorTimerRef.current);
+      errorTimerRef.current = setTimeout(() => setError(false), 2800);
       inputRef.current?.focus();
     }
   }
@@ -151,7 +167,7 @@ export default function PasswordGate() {
             transition: "color 0.15s",
           }}
         >
-          ★ ENTER PASSWORD ★
+          ★ ENTER PASSCODE ★
         </h1>
 
         <p style={{ fontFamily: "'Special Elite', cursive", color: "#777", fontSize: "0.75rem", marginBottom: "1rem" }}>
@@ -199,6 +215,15 @@ export default function PasswordGate() {
             {DENIED_MESSAGES[Math.min(attemptCount - 1, DENIED_MESSAGES.length - 1)]}
           </p>
         )}
+
+        {(() => {
+          const hint = [...HINTS].reverse().find((h) => attemptCount >= h.after);
+          return hint ? (
+            <p style={{ color: "#888", fontFamily: "'Special Elite', cursive", fontSize: "0.72rem", marginTop: "0.3rem", fontStyle: "italic" }}>
+              {hint.text}
+            </p>
+          ) : null;
+        })()}
 
         <button
           onClick={submit}
