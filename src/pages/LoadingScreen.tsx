@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 // ─── Phase 1a: XP loader — runs to ~52% then "crashes" ───────────────────────
 const STEPS_A = [
   "Initializing asha_bday.exe...",
-  "Loading core memories...",
-  "Calibrating vibes...",
-  "Compiling 18 years of awesome...",
+  "Locating 18 years of evidence...",
+  "Calibrating embarrassing photo index...",
+  "Compressing cringe memories to save space...",
 ];
 
 function Phase1A({ onDone }: { onDone: (frozenAt: number) => void }) {
@@ -17,7 +17,7 @@ function Phase1A({ onDone }: { onDone: (frozenAt: number) => void }) {
 
   useEffect(() => {
     const TARGET = 52;
-    const duration = 2800;
+    const duration = 3360;
     const stepMs = duration / STEPS_A.length;
 
     const stepTimer = setInterval(
@@ -44,18 +44,19 @@ function Phase1A({ onDone }: { onDone: (frozenAt: number) => void }) {
 
 // ─── Phase 2: BSOD — lines print in ──────────────────────────────────────────
 const BSOD_LINES: { text: string; style?: CSSProperties }[] = [
-  { text: "A problem has been detected and Windows has been shut down to prevent damage to your birthday.", style: { fontSize: "1rem", marginBottom: "1rem" } },
-  { text: "BIRTHDAY_INIT_EXCEPTION", style: { fontSize: "1.5rem", letterSpacing: "0.05em", marginBottom: "1rem" } },
-  { text: "If this is the first time you've seen this error screen, restart your excitement." },
-  { text: "If this screen appears again, follow these steps:" },
+  { text: "A problem has been detected and your birthday has been paused to prevent further excitement.", style: { fontSize: "1rem", marginBottom: "1rem" } },
+  { text: "GIFT_REVEAL_CATASTROPHIC_FAILURE", style: { fontSize: "1.5rem", letterSpacing: "0.05em", marginBottom: "1rem" } },
+  { text: "If this is the first time you've seen this error, happy birthday. If not, something is very wrong." },
+  { text: "If this screen appears again, consider lowering your expectations." },
   { text: "" },
-  { text: "Check to make sure any new hardware or software is properly installed." },
-  { text: "If this is a new installation, ask your gift-giver for any updates you might need." },
+  { text: "Check to make sure all 18 years were properly loaded before launching birthday.exe." },
+  { text: "If this is a new birthday, ask your gift-giver whether he tested this beforehand. (He did not.)" },
   { text: "" },
   { text: "Technical information:" },
-  { text: "*** STOP: 0x0000BDAY (0x00000018, 0xASHA0000, 0x48455259, 0x0000GIFT)", style: { color: "#fff" } },
+  { text: "*** STOP: 0x0000BDAY (0x00000012, 0xASHA1800, 0x474946540, 0xHENRY_SORRY)", style: { color: "#fff" } },
   { text: "" },
-  { text: "Running diagnostic repair... please wait", style: { color: "#aaa", fontSize: "0.9rem" } },
+  { text: "Collecting error data... 0%... 13%... 13%... still 13%...", style: { color: "#aaa", fontSize: "0.9rem" } },
+  { text: "Giving up on error data. Running repair instead.", style: { color: "#aaa", fontSize: "0.9rem" } },
 ];
 
 function PhaseBSOD({ onDone }: { onDone: () => void }) {
@@ -63,11 +64,11 @@ function PhaseBSOD({ onDone }: { onDone: () => void }) {
 
   useEffect(() => {
     let i = 0;
-    const delays = [80, 300, 250, 200, 50, 220, 220, 50, 180, 300, 80, 500];
+    const delays = [80, 350, 280, 220, 60, 240, 240, 60, 200, 350, 80, 600, 500];
 
     function addLine() {
       if (i >= BSOD_LINES.length) {
-        setTimeout(onDone, 900);
+        setTimeout(onDone, 1100);
         return;
       }
       setCount(i + 1);
@@ -101,16 +102,20 @@ function PhaseBSOD({ onDone }: { onDone: () => void }) {
 
 // ─── Phase 3: Repair terminal — deliberate pauses ────────────────────────────
 const REPAIR_LINES: { text: string; delay: number }[] = [
-  { text: "> DIAGNOSTIC INITIATED",                         delay: 300  },
-  { text: "> Scanning birthday_core.dll...",                delay: 600  },
-  { text: "> ERROR: vibes.sys corrupted at 0x52",           delay: 250  },
-  { text: "> Isolating corrupt segment...",                  delay: 900  },
-  { text: "> Downloading patch_v18.bin............",         delay: 1100 },
-  { text: "> Checksum OK",                                  delay: 220  },
-  { text: "> Patching memory blocks [===========] done",    delay: 950  },
-  { text: "> Flushing vibes cache...",                      delay: 500  },
-  { text: "> Restarting birthday sequence",                 delay: 400  },
-  { text: "> REPAIR COMPLETE. Resuming.",                   delay: 200  },
+  { text: "> DIAGNOSTIC INITIATED (this was not supposed to happen)",     delay: 500  },
+  { text: "> Scanning birthday_core.dll...",                              delay: 800  },
+  { text: "> Found 847 issues. Ignoring 846 of them.",                   delay: 400  },
+  { text: "> ERROR: vibes.sys corrupted at 0x52 — too much anticipation", delay: 350  },
+  { text: "> Isolating corrupt segment... it's the hype module",          delay: 1100 },
+  { text: "> Downloading patch_v18.bin............",                       delay: 1300 },
+  { text: "> Download failed. Retrying with worse internet.",             delay: 700  },
+  { text: "> Downloading patch_v18.bin [VERY SLOWLY]...............",      delay: 1500 },
+  { text: "> Checksum OK (somehow)",                                      delay: 300  },
+  { text: "> Patching memory blocks [===========] done",                  delay: 1100 },
+  { text: "> Flushing embarrassing memories from cache...",               delay: 700  },
+  { text: "> Cannot flush. Too many. Leaving them.",                      delay: 400  },
+  { text: "> Restarting birthday sequence",                               delay: 500  },
+  { text: "> REPAIR COMPLETE. Resuming. Sorry about that.",               delay: 200  },
 ];
 
 function PhaseRepair({ onDone }: { onDone: () => void }) {
@@ -122,7 +127,7 @@ function PhaseRepair({ onDone }: { onDone: () => void }) {
 
     function addLine() {
       if (i >= REPAIR_LINES.length) {
-        setTimeout(onDone, 800);
+        setTimeout(onDone, 1000);
         return;
       }
       const { text, delay } = REPAIR_LINES[i];
@@ -172,10 +177,10 @@ function PhaseRepair({ onDone }: { onDone: () => void }) {
 
 // ─── Phase 1b: XP loader resumed from ~52% ───────────────────────────────────
 const STEPS_B = [
-  "Resuming from checkpoint...",
+  "Resuming from checkpoint... (the good one)",
   "Re-compiling 18 years of awesome...",
-  "Almost done...",
-  "DONE!",
+  "Almost done. For real this time.",
+  "DONE! (Please don't refresh.)",
 ];
 
 function Phase1B({ startAt, onDone }: { startAt: number; onDone: () => void }) {
@@ -184,7 +189,7 @@ function Phase1B({ startAt, onDone }: { startAt: number; onDone: () => void }) {
   const doneRef = useRef(false);
 
   useEffect(() => {
-    const duration = 2800;
+    const duration = 3360;
     const remaining = 100 - startAt;
     const stepMs = duration / STEPS_B.length;
     const tickMs = duration / (remaining / 1.4);
