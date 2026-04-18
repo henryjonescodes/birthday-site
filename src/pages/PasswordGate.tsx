@@ -84,11 +84,15 @@ const DENIED_MESSAGES = [
 ];
 
 const HINTS = [
-  { after: 5,  text: "by the way — it's a number, not a word." },
-  { after: 10, text: "think about your birthday. not today's — yours." },
-  { after: 15, text: "your birthday, 8 digits, written completely backwards." },
-  { after: 20, text: "it's a date Carly did a lot of work on." },
-  { after: 25, text: "a date like today... but when Katy Perry kissed a girl. but backwards." },
+  { after: 3,  text: "psst — it's not a word." },
+  { after: 6,  text: "think numbers. significant ones." },
+  { after: 9,  text: "think about your birthday. the actual date." },
+  { after: 12, text: "have you tried thinking backwards? genuinely." },
+  { after: 15, text: "something meaningful. 8 digits. not in the usual order." },
+  { after: 18, text: "it's a date Carly did a lot of work on." },
+  { after: 21, text: "a date like today... but when Katy Perry kissed a girl. but backwards." },
+  { after: 24, text: "you know this date better than anyone. start from the end." },
+  { after: 27, text: "04202008 → 80XXXXXX" },
 ];
 
 export default function PasswordGate() {
