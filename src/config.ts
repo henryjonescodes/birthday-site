@@ -1,4 +1,4 @@
-export const PASSWORD = "asha18";
+export const PASSWORD = "80020240";
 
 export const EXPERIENCES = [
   {
