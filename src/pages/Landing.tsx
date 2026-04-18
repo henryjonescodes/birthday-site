@@ -1,23 +1,9 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { EXPERIENCES, YOUR_NAME } from "../config";
 import { useAuthStore } from "../store/authStore";
 
 const SLIDE_W = "100vw";
-
-function useSwipe(onLeft: () => void, onRight: () => void) {
-  const startX = useRef<number | null>(null);
-
-  return {
-    onTouchStart: (e: React.TouchEvent) => { startX.current = e.touches[0].clientX; },
-    onTouchEnd: (e: React.TouchEvent) => {
-      if (startX.current === null) return;
-      const dx = e.changedTouches[0].clientX - startX.current;
-      if (Math.abs(dx) > 40) dx < 0 ? onLeft() : onRight();
-      startX.current = null;
-    },
-  };
-}
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -28,7 +14,6 @@ export default function Landing() {
 
   const prev = useCallback(() => setActive((i) => (i - 1 + EXPERIENCES.length) % EXPERIENCES.length), []);
   const next = useCallback(() => setActive((i) => (i + 1) % EXPERIENCES.length), []);
-  const swipe = useSwipe(next, prev);
 
   function handleSelect() {
     setExploding(true);
@@ -41,7 +26,7 @@ export default function Landing() {
     <div
       className="scanlines"
       style={{ position: "fixed", inset: 0, background: "#0a0a0a", overflow: "hidden", display: "flex", flexDirection: "column" }}
-      {...swipe}
+
     >
       {/* Header strip */}
       <div className="fade-in" style={{
@@ -66,7 +51,7 @@ export default function Landing() {
           ★ HAPPY 18th BIRTHDAY ASHA ★
         </h1>
         <p style={{ fontFamily: "'Special Elite', cursive", color: "#555", fontSize: "0.78rem", marginTop: "0.3rem" }}>
-          pick your gift — {EXPERIENCES.length} options — swipe or use arrows
+          pick your gift — {EXPERIENCES.length} options — use arrows to navigate
         </p>
       </div>
 
