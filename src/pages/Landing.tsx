@@ -281,9 +281,10 @@ function Slide({
 
       {/* Text + CTA row — below model */}
       <div style={{
-        width: "100%",
+        width: "60%",
+        alignSelf: "center",
         flexShrink: 0,
-        padding: "1rem 2rem 1.25rem",
+        padding: "1rem 0 1.25rem",
         display: "flex",
         flexDirection: "row",
         alignItems: "flex-end",
