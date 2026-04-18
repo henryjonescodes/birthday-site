@@ -356,7 +356,7 @@ function Slide({
               marginBottom: "0.2rem",
             }}
           >
-            OPTION {String(index + 1).padStart(2, "0")} — {exp.tickets} TICKETS
+            OPTION {String(index + 1).padStart(2, "0")} — {exp.tickets} TICKETS + {YOUR_NAME.toUpperCase()}
           </div>
 
           <div
@@ -403,9 +403,6 @@ function Slide({
             }}
           >
             {exp.description}
-            <span style={{ color: "#3a3a3a", marginLeft: "0.5rem" }}>
-              + {YOUR_NAME}
-            </span>
           </p>
         </div>
 
