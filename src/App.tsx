@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuthStore } from "./store/authStore";
 import PasswordGate from "./pages/PasswordGate";
@@ -11,29 +11,26 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
   return unlocked ? <>{children}</> : <Navigate to="/" replace />;
 }
 
-// Renders Landing in background while loader sits on top
+// Renders Landing in background while loader sits on top — no navigation on done,
+// just fade the loader out to reveal the already-loaded Landing underneath.
 function LoadingWithPreload() {
-  const navigate = useNavigate();
-  const [loaderVisible, setLoaderVisible] = useState(true);
+  const [loaderGone, setLoaderGone] = useState(false);
   const [loaderFading, setLoaderFading] = useState(false);
 
   function onLoadingDone() {
     setLoaderFading(true);
-    setTimeout(() => {
-      setLoaderVisible(false);
-      navigate("/home", { replace: true });
-    }, 700);
+    setTimeout(() => setLoaderGone(true), 700);
   }
 
   return (
     <div style={{ position: "fixed", inset: 0 }}>
-      {/* Landing preloads in background, invisible until loader fades */}
-      <div style={{ position: "absolute", inset: 0, visibility: loaderVisible ? "hidden" : "visible" }}>
+      {/* Landing always mounted and rendered — iframes preload immediately */}
+      <div style={{ position: "absolute", inset: 0, visibility: loaderGone ? "visible" : "hidden" }}>
         <Landing />
       </div>
 
-      {/* Loader overlaid on top */}
-      {loaderVisible && (
+      {/* Loader overlaid on top, fades out then unmounts */}
+      {!loaderGone && (
         <div style={{
           position: "absolute",
           inset: 0,
