@@ -449,7 +449,7 @@ function Slide({
             filter: exploding ? "brightness(4) saturate(0)" : "none",
           }}
         >
-          PICK THIS →
+          {exp.ctaLabel} →
         </button>
       </div>
     </div>
