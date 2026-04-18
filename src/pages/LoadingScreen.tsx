@@ -61,6 +61,7 @@ const BSOD_LINES: { text: string; style?: CSSProperties }[] = [
 
 function PhaseBSOD({ onDone }: { onDone: () => void }) {
   const [count, setCount] = useState(0);
+  const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
     let i = 0;
@@ -68,7 +69,7 @@ function PhaseBSOD({ onDone }: { onDone: () => void }) {
 
     function addLine() {
       if (i >= BSOD_LINES.length) {
-        setTimeout(onDone, 1100);
+        setShowButton(true);
         return;
       }
       setCount(i + 1);
@@ -77,7 +78,7 @@ function PhaseBSOD({ onDone }: { onDone: () => void }) {
     }
     const t = setTimeout(addLine, 120);
     return () => clearTimeout(t);
-  }, [onDone]);
+  }, []);
 
   return (
     <div style={{
@@ -94,6 +95,25 @@ function PhaseBSOD({ onDone }: { onDone: () => void }) {
           l.text === "" ? <div key={i} style={{ height: "0.8rem" }} /> : (
             <div key={i} style={l.style}>{l.text}</div>
           )
+        )}
+        {showButton && (
+          <div style={{ marginTop: "1.5rem" }}>
+            <button
+              onClick={onDone}
+              style={{
+                fontFamily: "'VT323', monospace",
+                fontSize: "1.1rem",
+                background: "#ccc",
+                color: "#0000aa",
+                border: "none",
+                padding: "0.3rem 1.5rem",
+                cursor: "pointer",
+                letterSpacing: "0.08em",
+              }}
+            >
+              [ Initiate Repairs ]
+            </button>
+          </div>
         )}
       </div>
     </div>
@@ -120,6 +140,8 @@ const REPAIR_LINES: { text: string; delay: number }[] = [
 
 function PhaseRepair({ onDone }: { onDone: () => void }) {
   const [visibleLines, setVisibleLines] = useState<string[]>([]);
+  // "pausing" = cursor blinks visibly for a beat before continuing
+  const [pausing, setPausing] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -127,13 +149,25 @@ function PhaseRepair({ onDone }: { onDone: () => void }) {
 
     function addLine() {
       if (i >= REPAIR_LINES.length) {
-        setTimeout(onDone, 1000);
+        // blink pause at end before handing off
+        setPausing(true);
+        setTimeout(() => { setPausing(false); setTimeout(onDone, 200); }, 1400);
         return;
       }
       const { text, delay } = REPAIR_LINES[i];
       setVisibleLines((l) => [...l, text]);
       i++;
-      setTimeout(addLine, delay);
+
+      if (i === 1) {
+        // pause-blink after first line before continuing
+        setPausing(true);
+        setTimeout(() => {
+          setPausing(false);
+          setTimeout(addLine, 200);
+        }, 1200);
+      } else {
+        setTimeout(addLine, delay);
+      }
     }
 
     const t = setTimeout(addLine, 400);
@@ -169,7 +203,10 @@ function PhaseRepair({ onDone }: { onDone: () => void }) {
             {line}
           </div>
         ))}
-        <span className="blink" style={{ fontFamily: "'VT323', monospace", color: "#00ffe1", fontSize: "1.05rem" }}>█</span>
+        <span
+          className={pausing ? "blink" : ""}
+          style={{ fontFamily: "'VT323', monospace", color: "#00ffe1", fontSize: "1.05rem", opacity: pausing ? 1 : 0 }}
+        >█</span>
       </div>
     </div>
   );
