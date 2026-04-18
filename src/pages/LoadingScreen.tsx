@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { EXPERIENCES } from "../config";
 
 // ─── Phase 1: XP-style chunky progress bar ───────────────────────────────────
 const XP_STEPS = [
@@ -87,150 +86,7 @@ function Phase1({ onDone }: { onDone: () => void }) {
   );
 }
 
-// ─── Phase 2: Garbled preview + fake error ────────────────────────────────────
-const GLITCH_CHARS = "█▓▒░▄▀■□▪▫◘◙◆◇○●★☆∆Ω∑∞≈≠∂∫∏√±×÷≤≥@#$%&*!?~^`|\\{}[]<>";
 
-function scramble(str: string, amount = 0.6): string {
-  return str.split("").map((c) =>
-    c !== " " && Math.random() < amount
-      ? GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]
-      : c
-  ).join("");
-}
-
-function Phase2({ onDone }: { onDone: () => void }) {
-  const [showError, setShowError] = useState(false);
-  const [lines, setLines] = useState(() =>
-    EXPERIENCES.map((e) => ({ title: scramble(e.title, 0.85), desc: scramble(e.description, 0.9) }))
-  );
-
-  useEffect(() => {
-    const scrambleInterval = setInterval(() => {
-      setLines(EXPERIENCES.map((e) => ({
-        title: scramble(e.title, 0.6 + Math.random() * 0.3),
-        desc: scramble(e.description, 0.7 + Math.random() * 0.25),
-      })));
-    }, 80);
-
-    const errorTimer = setTimeout(() => {
-      clearInterval(scrambleInterval);
-      setShowError(true);
-    }, 3000);
-
-    const doneTimer = setTimeout(onDone, 5200);
-
-    return () => { clearInterval(scrambleInterval); clearTimeout(errorTimer); clearTimeout(doneTimer); };
-  }, [onDone]);
-
-  if (showError) return <ErrorScreen />;
-
-  return (
-    <div style={{ textAlign: "left", maxWidth: 560, width: "100%", position: "relative" }}>
-      {/* Fake landing preview */}
-      <div style={{ opacity: 0.55, pointerEvents: "none", filter: "hue-rotate(30deg) saturate(0.7)" }}>
-        <h1 style={{
-          fontFamily: "'VT323', monospace",
-          fontSize: "clamp(1.8rem, 6vw, 3.5rem)",
-          color: "#00ffe1",
-          lineHeight: 1.1,
-          marginBottom: "0.5rem",
-          textShadow: "3px 0 #ff003c, -3px 0 #00ffe1",
-        }}>
-          ★ {scramble("HAPPY 18th BIRTHDAY ASHA", 0.3)} ★
-        </h1>
-        <p style={{ fontFamily: "'Special Elite', cursive", color: "#aaa", fontSize: "0.8rem", marginBottom: "1.5rem" }}>
-          {scramble("ok so i couldn't just get you like... a candle or whatever", 0.4)}
-        </p>
-        {lines.map((l, i) => (
-          <div key={i} style={{
-            background: "rgba(0,255,225,0.04)",
-            border: "1px solid #222",
-            borderRadius: 4,
-            padding: "1rem 1.25rem",
-            marginBottom: "0.75rem",
-          }}>
-            <div style={{ fontFamily: "'VT323', monospace", color: "#e0e0e0", fontSize: "1.4rem", lineHeight: 1 }}>
-              {String(i + 1).padStart(2, "0")} / {l.title}
-            </div>
-            <p style={{ fontFamily: "'Special Elite', cursive", color: "#777", fontSize: "0.78rem", marginTop: "0.4rem" }}>
-              {l.desc}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      {/* Overlay glitch bars */}
-      <div style={{
-        position: "absolute",
-        inset: 0,
-        pointerEvents: "none",
-        overflow: "hidden",
-      }}>
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} style={{
-            position: "absolute",
-            left: 0, right: 0,
-            height: `${4 + Math.random() * 8}px`,
-            top: `${10 + i * 17}%`,
-            background: `rgba(${Math.random() > 0.5 ? "0,255,225" : "255,0,60"},0.15)`,
-            transform: `translateX(${(Math.random() - 0.5) * 20}px)`,
-            animation: "glitchBar 0.15s infinite alternate",
-          }} />
-        ))}
-      </div>
-
-      <p style={{
-        fontFamily: "'VT323', monospace",
-        color: "#555",
-        fontSize: "0.85rem",
-        textAlign: "center",
-        marginTop: "0.5rem",
-      }}>
-        RENDERING PREVIEW... DO NOT CLOSE WINDOW
-      </p>
-    </div>
-  );
-}
-
-function ErrorScreen() {
-  return (
-    <div style={{
-      background: "#0000aa",
-      minHeight: "100vh",
-      width: "100%",
-      position: "fixed",
-      inset: 0,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      zIndex: 100,
-      padding: "2rem",
-    }}>
-      <div style={{ maxWidth: 560, color: "#fff" }}>
-        <p style={{ fontFamily: "'VT323', monospace", fontSize: "1.6rem", marginBottom: "1rem" }}>
-          A fatal exception 0E has occurred at 0028:C0011E36 in VXD VMM(01) +
-          00010E36. The current application will be terminated.
-        </p>
-        <p style={{ fontFamily: "'Special Elite', cursive", fontSize: "0.9rem", marginBottom: "2rem", lineHeight: 1.7 }}>
-          * Press any key to terminate the current application.<br />
-          * Press CTRL+ALT+DEL to restart your computer. You will<br />
-          &nbsp;&nbsp;lose any unsaved information in all applications.<br />
-          <br />
-          Press any key to continue <span className="blink">_</span>
-        </p>
-        <p style={{
-          fontFamily: "'VT323', monospace",
-          fontSize: "1rem",
-          color: "#aaaaff",
-          borderTop: "1px solid #aaaaff",
-          paddingTop: "0.75rem",
-        }}>
-          jk jk jk loading ur actual gift now...
-        </p>
-      </div>
-    </div>
-  );
-}
 
 // ─── Phase 3: Dial-up modem ASCII ────────────────────────────────────────────
 const MODEM_LINES = [
@@ -308,7 +164,7 @@ function Phase3({ onDone }: { onDone: () => void }) {
 // ─── Orchestrator ─────────────────────────────────────────────────────────────
 export default function LoadingScreen() {
   const navigate = useNavigate();
-  const [phase, setPhase] = useState<1 | 2 | 3>(1);
+  const [phase, setPhase] = useState<1 | 3>(1);
   const [fading, setFading] = useState(false);
 
   function goHome() {
@@ -330,8 +186,7 @@ export default function LoadingScreen() {
         transition: "opacity 0.7s ease",
       }}
     >
-      {phase === 1 && <Phase1 onDone={() => setPhase(2)} />}
-      {phase === 2 && <Phase2 onDone={() => setPhase(3)} />}
+      {phase === 1 && <Phase1 onDone={() => setPhase(3)} />}
       {phase === 3 && <Phase3 onDone={goHome} />}
     </div>
   );
