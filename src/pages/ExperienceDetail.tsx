@@ -37,11 +37,10 @@ export default function ExperienceDetail() {
         borderBottom: `1px solid ${exp.accent}22`,
         display: "flex",
         alignItems: "center",
-        gap: "0.5rem",
+        gap: "0.75rem",
         flexShrink: 0,
         background: "#0a0a0a",
         zIndex: 2,
-        flexWrap: "wrap",
       }}>
         <button
           onClick={() => navigate("/home")}
@@ -53,29 +52,33 @@ export default function ExperienceDetail() {
             padding: "0.2rem 0.75rem",
             cursor: "pointer",
             fontSize: "1.1rem",
+            flexShrink: 0,
           }}
         >
           ← back
         </button>
-        <h2 style={{
+
+        {/* Title — always visible */}
+        <h2 className="detail-title" style={{
           fontFamily: "'VT323', monospace",
           color: "#e0e0e0",
           fontSize: "clamp(1rem, 4vw, 1.6rem)",
           margin: 0,
           lineHeight: 1,
-          flex: "1 1 auto",
-          minWidth: 0,
           overflow: "hidden",
           textOverflow: "ellipsis",
           whiteSpace: "nowrap",
+          minWidth: 0,
         }}>
           {exp.title} <span style={{ color: exp.accent, opacity: 0.6, fontSize: "0.7em" }}>{exp.subtitle}</span>
         </h2>
-        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0 }}>
+
+        {/* Desktop-only: ticket count + open button */}
+        <div className="detail-meta" style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.75rem", flexShrink: 0 }}>
           <span style={{
             fontFamily: "'VT323', monospace",
             color: exp.accent,
-            fontSize: "clamp(0.7rem, 2vw, 0.95rem)",
+            fontSize: "0.95rem",
             opacity: 0.6,
             whiteSpace: "nowrap",
           }}>
@@ -89,7 +92,7 @@ export default function ExperienceDetail() {
             onMouseLeave={() => setHovered(false)}
             style={{
               fontFamily: "'VT323', monospace",
-              fontSize: "clamp(0.8rem, 2.5vw, 1rem)",
+              fontSize: "1rem",
               color: hovered ? "#0a0a0a" : exp.accent,
               background: hovered ? exp.accent : "transparent",
               border: `1px solid ${exp.accent}`,
@@ -206,7 +209,7 @@ export default function ExperienceDetail() {
             transition: "background 0.15s, color 0.15s, box-shadow 0.15s",
           }}
         >
-          VISIT SITE →
+          {exp.ctaLabel} →
         </a>
 
       </div>

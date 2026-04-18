@@ -108,6 +108,14 @@ body {
   100% { transform: translateX(4px) scaleX(1.02); opacity: 0.5; }
 }
 
+/* Detail page header responsive */
+.detail-meta  { display: none; }
+.detail-title { flex: 1 1 auto; }
+
+@media (min-width: 640px) {
+  .detail-meta { display: flex; }
+}
+
 /* CTA button responsive visibility */
 .cta-desktop { display: none !important; }
 .cta-mobile  { display: block; }
