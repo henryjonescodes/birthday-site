@@ -19,7 +19,11 @@ function LoadingWithPreload() {
 
   function onLoadingDone() {
     setLoaderFading(true);
-    setTimeout(() => setLoaderGone(true), 700);
+    setTimeout(() => {
+      setLoaderGone(true);
+      // Update URL without triggering a route remount
+      window.history.replaceState(null, "", "/home");
+    }, 700);
   }
 
   return (
