@@ -30,8 +30,8 @@ export const EXPERIENCES = [
     description: "You drive real excavators and construction machinery. This one is unhinged and I love it. The only birthday gift where you operate heavy equipment.",
     url: "https://diggerlandusa.com/faq/",
     tickets: 2,
-    sketchfabSrc: "https://sketchfab.com/models/daeff394b2e84b8cbe6a34c8a8836a14/embed?autospin=1&autostart=1&camera=0&transparent=1&preload=1&ui_animations=0&camera_orbit=0deg+75deg+200%25",
-    sketchfabTitle: "Generic Front Loader/BackHoe",
+    sketchfabSrc: "https://sketchfab.com/models/ff6d27a70a9e4e51996d26eb149be081/embed?autospin=1&autostart=1&camera=0&transparent=1&preload=1&ui_animations=0",
+    sketchfabTitle: "Front loader 0",
     accent: "#ffe600",
   },
 ];
