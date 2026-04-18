@@ -56,6 +56,8 @@ function useDVD(boxW: number, boxH: number) {
   return { pos, color };
 }
 
+const isMobile = () => window.innerWidth < 640;
+
 export default function PasswordGate() {
   const [input, setInput] = useState("");
   const [shaking, setShaking] = useState(false);
@@ -65,6 +67,8 @@ export default function PasswordGate() {
   const inputRef = useRef<HTMLInputElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const [boxSize, setBoxSize] = useState({ w: 0, h: 0 });
+  const mobile = isMobile();
+  const BOX_W = mobile ? 272 : 340;
 
   const isDebug = new URLSearchParams(window.location.search).has("debug");
   const reset = useAuthStore((s) => s.reset);
@@ -73,7 +77,7 @@ export default function PasswordGate() {
     if (!boxRef.current) return;
     const { offsetWidth: w, offsetHeight: h } = boxRef.current;
     setBoxSize({ w, h });
-  }, []);
+  }, [BOX_W]);
 
   const { pos, color } = useDVD(boxSize.w, boxSize.h);
 
@@ -104,8 +108,8 @@ export default function PasswordGate() {
           position: "absolute",
           left: pos.x,
           top: pos.y,
-          width: 340,
-          padding: "1.5rem",
+          width: BOX_W,
+          padding: mobile ? "1.1rem" : "1.5rem",
           background: "rgba(10,10,10,0.92)",
           border: `2px solid ${color}`,
           boxShadow: `0 0 24px ${color}55, 0 0 6px ${color}33`,
@@ -118,7 +122,7 @@ export default function PasswordGate() {
           className="glitch-text"
           style={{
             fontFamily: "'VT323', monospace",
-            fontSize: "1.9rem",
+            fontSize: mobile ? "1.5rem" : "1.9rem",
             color,
             letterSpacing: "0.05em",
             lineHeight: 1,

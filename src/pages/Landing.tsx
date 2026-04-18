@@ -69,12 +69,12 @@ export default function Landing() {
           style={{
             fontFamily: "'Special Elite', cursive",
             color: "#555",
-            fontSize: "0.78rem",
+            fontSize: "clamp(0.65rem, 1.8vw, 0.78rem)",
             marginTop: "0.3rem",
+            whiteSpace: "nowrap",
           }}
         >
-          pick one experience — {EXPERIENCES.length} options — use arrows to
-          navigate
+          pick one — {EXPERIENCES.length} options — use arrows
         </p>
       </div>
 
@@ -319,117 +319,112 @@ function Slide({
       {/* Text + CTA row — below model */}
       <div
         style={{
-          width: "60%",
+          width: "min(90%, 680px)",
           alignSelf: "center",
           flexShrink: 0,
-          padding: "1rem 0 1.25rem",
+          padding: "0.75rem 0 1rem",
           display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-end",
-          gap: "2rem",
+          flexDirection: "column",
+          gap: "0.6rem",
           borderTop: `1px solid ${exp.accent}22`,
           position: "relative",
           zIndex: 2,
         }}
       >
-        {/* Left accent bar */}
+        {/* Option label */}
         <div
           style={{
-            width: 3,
-            alignSelf: "stretch",
-            background: exp.accent,
-            boxShadow: `0 0 10px ${exp.accent}`,
-            borderRadius: 2,
-            flexShrink: 0,
+            fontFamily: "'VT323', monospace",
+            color: exp.accent,
+            fontSize: "clamp(0.65rem, 2vw, 0.75rem)",
+            letterSpacing: "0.15em",
+            opacity: 0.7,
           }}
-        />
+        >
+          OPTION {String(index + 1).padStart(2, "0")} — {exp.tickets} TICKETS + {YOUR_NAME.toUpperCase()}
+        </div>
 
-        {/* Text block */}
-        <div style={{ flex: 1, minWidth: 0 }}>
+        {/* Title row with CTA */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            flexWrap: "wrap",
+          }}
+        >
+          {/* Left accent bar */}
           <div
+            style={{
+              width: 3,
+              height: "2.5rem",
+              background: exp.accent,
+              boxShadow: `0 0 10px ${exp.accent}`,
+              borderRadius: 2,
+              flexShrink: 0,
+            }}
+          />
+          <h2
+            style={{
+              fontFamily: "'VT323', monospace",
+              fontSize: "clamp(1.8rem, 5vw, 3.5rem)",
+              color: "#fff",
+              lineHeight: 1,
+              margin: 0,
+              textShadow: isActive ? `0 0 30px ${exp.accent}44` : "none",
+              transition: "text-shadow 0.4s",
+            }}
+          >
+            {exp.title}
+          </h2>
+          <span
             style={{
               fontFamily: "'VT323', monospace",
               color: exp.accent,
-              fontSize: "0.75rem",
-              letterSpacing: "0.25em",
+              fontSize: "clamp(0.9rem, 2.5vw, 1.4rem)",
               opacity: 0.7,
-              marginBottom: "0.2rem",
+              letterSpacing: "0.06em",
             }}
           >
-            OPTION {String(index + 1).padStart(2, "0")} — {exp.tickets} TICKETS + {YOUR_NAME.toUpperCase()}
-          </div>
-
-          <div
+            {exp.subtitle}
+          </span>
+          {/* CTA pushed to end */}
+          <button
+            onClick={onSelect}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
             style={{
-              display: "flex",
-              alignItems: "baseline",
-              gap: "0.75rem",
-              flexWrap: "wrap",
+              marginLeft: "auto",
+              flexShrink: 0,
+              background: hovered ? exp.accent : "transparent",
+              color: hovered ? "#0a0a0a" : exp.accent,
+              fontFamily: "'VT323', monospace",
+              fontSize: "clamp(1rem, 2.5vw, 1.3rem)",
+              border: `2px solid ${exp.accent}`,
+              padding: "0.35rem 1rem",
+              cursor: "pointer",
+              letterSpacing: "0.1em",
+              transition: "background 0.15s, color 0.15s, box-shadow 0.15s",
+              boxShadow: hovered ? `0 0 20px ${exp.accent}88` : "none",
+              filter: exploding ? "brightness(4) saturate(0)" : "none",
+              whiteSpace: "nowrap",
             }}
           >
-            <h2
-              style={{
-                fontFamily: "'VT323', monospace",
-                fontSize: "clamp(2rem, 4vw, 3.5rem)",
-                color: "#fff",
-                lineHeight: 1,
-                margin: 0,
-                textShadow: isActive ? `0 0 30px ${exp.accent}44` : "none",
-                transition: "text-shadow 0.4s",
-              }}
-            >
-              {exp.title}
-            </h2>
-            <span
-              style={{
-                fontFamily: "'VT323', monospace",
-                color: exp.accent,
-                fontSize: "clamp(1rem, 1.8vw, 1.4rem)",
-                opacity: 0.7,
-                letterSpacing: "0.06em",
-              }}
-            >
-              {exp.subtitle}
-            </span>
-          </div>
-
-          <p
-            style={{
-              fontFamily: "'Special Elite', cursive",
-              color: "#888",
-              fontSize: "clamp(0.75rem, 1.1vw, 0.88rem)",
-              lineHeight: 1.6,
-              margin: "0.4rem 0 0",
-            }}
-          >
-            {exp.description}
-          </p>
+            PICK THIS →
+          </button>
         </div>
 
-        {/* CTA */}
-        <button
-          onClick={onSelect}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
+        <p
           style={{
-            flexShrink: 0,
-            alignSelf: "center",
-            background: hovered ? exp.accent : "transparent",
-            color: hovered ? "#0a0a0a" : exp.accent,
-            fontFamily: "'VT323', monospace",
-            fontSize: "1.3rem",
-            border: `2px solid ${exp.accent}`,
-            padding: "0.45rem 1.5rem",
-            cursor: "pointer",
-            letterSpacing: "0.1em",
-            transition: "background 0.15s, color 0.15s, box-shadow 0.15s",
-            boxShadow: hovered ? `0 0 20px ${exp.accent}88` : "none",
-            filter: exploding ? "brightness(4) saturate(0)" : "none",
-            whiteSpace: "nowrap",
+            fontFamily: "'Special Elite', cursive",
+            color: "#888",
+            fontSize: "clamp(0.72rem, 1.5vw, 0.88rem)",
+            lineHeight: 1.5,
+            margin: 0,
           }}
         >
-          PICK THIS →
-        </button>
+          {exp.description}
+        </p>
       </div>
     </div>
   );

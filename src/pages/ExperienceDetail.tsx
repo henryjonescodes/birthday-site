@@ -33,14 +33,15 @@ export default function ExperienceDetail() {
     <div className="scanlines min-h-screen flex flex-col bg-[#0a0a0a]">
       {/* Top bar */}
       <div style={{
-        padding: "0.75rem 1.5rem",
+        padding: "0.75rem 1rem",
         borderBottom: `1px solid ${exp.accent}22`,
         display: "flex",
         alignItems: "center",
-        gap: "1rem",
+        gap: "0.5rem",
         flexShrink: 0,
         background: "#0a0a0a",
         zIndex: 2,
+        flexWrap: "wrap",
       }}>
         <button
           onClick={() => navigate("/home")}
@@ -59,9 +60,13 @@ export default function ExperienceDetail() {
         <h2 style={{
           fontFamily: "'VT323', monospace",
           color: "#e0e0e0",
-          fontSize: "clamp(1.2rem, 3vw, 1.6rem)",
+          fontSize: "clamp(1rem, 3vw, 1.6rem)",
           margin: 0,
           lineHeight: 1,
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          maxWidth: "30vw",
         }}>
           {exp.title} <span style={{ color: exp.accent, opacity: 0.6, fontSize: "0.7em" }}>{exp.subtitle}</span>
         </h2>
@@ -69,7 +74,7 @@ export default function ExperienceDetail() {
           <span style={{
             fontFamily: "'VT323', monospace",
             color: exp.accent,
-            fontSize: "0.95rem",
+            fontSize: "clamp(0.75rem, 2vw, 0.95rem)",
             opacity: 0.6,
             whiteSpace: "nowrap",
           }}>
