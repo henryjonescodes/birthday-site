@@ -5,7 +5,7 @@ export const EXPERIENCES = [
     id: "six-flags",
     title: "Six Flags",
     subtitle: "Great Adventure",
-    description: "Roller coasters, thrill rides, and chaos. Six Flags Great Adventure is right there — we're going, you're screaming, it's a birthday.",
+    description: "Roller coasters, thrill rides, and chaos. Six Flags Great Adventure is right there — a classic birthday adventure (but unfortunately they took down the big roller coaster)",
     url: "https://www.sixflags.com/greatadventure",
     tickets: 2,
     sketchfabSrc: "https://sketchfab.com/models/2786497437974a739ecb4cbb1a17887e/embed?transparent=1&autostart=1&autospin=1&preload=1&ui_animations=0&zoom=0.5&camera_orbit=0deg+75deg+200%25",

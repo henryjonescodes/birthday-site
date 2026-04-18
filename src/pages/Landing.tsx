@@ -12,8 +12,14 @@ export default function Landing() {
   const [active, setActive] = useState(0);
   const [exploding, setExploding] = useState(false);
 
-  const prev = useCallback(() => setActive((i) => (i - 1 + EXPERIENCES.length) % EXPERIENCES.length), []);
-  const next = useCallback(() => setActive((i) => (i + 1) % EXPERIENCES.length), []);
+  const prev = useCallback(
+    () => setActive((i) => (i - 1 + EXPERIENCES.length) % EXPERIENCES.length),
+    [],
+  );
+  const next = useCallback(
+    () => setActive((i) => (i + 1) % EXPERIENCES.length),
+    [],
+  );
 
   function handleSelect() {
     setExploding(true);
@@ -25,18 +31,27 @@ export default function Landing() {
   return (
     <div
       className="scanlines"
-      style={{ position: "fixed", inset: 0, background: "#0a0a0a", overflow: "hidden", display: "flex", flexDirection: "column" }}
-
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "#0a0a0a",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
     >
       {/* Header strip */}
-      <div className="fade-in" style={{
-        flexShrink: 0,
-        textAlign: "center",
-        padding: "1.5rem 1rem 0.75rem",
-        borderBottom: "1px solid #111",
-        position: "relative",
-        zIndex: 2,
-      }}>
+      <div
+        className="fade-in"
+        style={{
+          flexShrink: 0,
+          textAlign: "center",
+          padding: "1.5rem 1rem 0.75rem",
+          borderBottom: "1px solid #111",
+          position: "relative",
+          zIndex: 2,
+        }}
+      >
         <h1
           className="glitch-text"
           style={{
@@ -50,22 +65,32 @@ export default function Landing() {
         >
           ★ HAPPY 18th BIRTHDAY ASHA ★
         </h1>
-        <p style={{ fontFamily: "'Special Elite', cursive", color: "#555", fontSize: "0.78rem", marginTop: "0.3rem" }}>
-          pick your gift — {EXPERIENCES.length} options — use arrows to navigate
+        <p
+          style={{
+            fontFamily: "'Special Elite', cursive",
+            color: "#555",
+            fontSize: "0.78rem",
+            marginTop: "0.3rem",
+          }}
+        >
+          pick one experience — {EXPERIENCES.length} options — use arrows to
+          navigate
         </p>
       </div>
 
       {/* Carousel viewport */}
       <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
         {/* Slides */}
-        <div style={{
-          display: "flex",
-          width: `${EXPERIENCES.length * 100}%`,
-          height: "100%",
-          transform: `translateX(-${active * (100 / EXPERIENCES.length)}%)`,
-          transition: "transform 0.45s cubic-bezier(0.77,0,0.18,1)",
-          willChange: "transform",
-        }}>
+        <div
+          style={{
+            display: "flex",
+            width: `${EXPERIENCES.length * 100}%`,
+            height: "100%",
+            transform: `translateX(-${active * (100 / EXPERIENCES.length)}%)`,
+            transition: "transform 0.45s cubic-bezier(0.77,0,0.18,1)",
+            willChange: "transform",
+          }}
+        >
           {EXPERIENCES.map((e, i) => (
             <Slide
               key={e.id}
@@ -99,8 +124,14 @@ export default function Landing() {
             transition: "border-color 0.15s, box-shadow 0.15s",
             backdropFilter: "blur(4px)",
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.borderColor = exp.accent; e.currentTarget.style.boxShadow = `0 0 12px ${exp.accent}55`; }}
-          onMouseLeave={(e) => { e.currentTarget.style.borderColor = `${exp.accent}44`; e.currentTarget.style.boxShadow = "none"; }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = exp.accent;
+            e.currentTarget.style.boxShadow = `0 0 12px ${exp.accent}55`;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = `${exp.accent}44`;
+            e.currentTarget.style.boxShadow = "none";
+          }}
         >
           ←
         </button>
@@ -126,24 +157,32 @@ export default function Landing() {
             transition: "border-color 0.15s, box-shadow 0.15s",
             backdropFilter: "blur(4px)",
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.borderColor = exp.accent; e.currentTarget.style.boxShadow = `0 0 12px ${exp.accent}55`; }}
-          onMouseLeave={(e) => { e.currentTarget.style.borderColor = `${exp.accent}44`; e.currentTarget.style.boxShadow = "none"; }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = exp.accent;
+            e.currentTarget.style.boxShadow = `0 0 12px ${exp.accent}55`;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = `${exp.accent}44`;
+            e.currentTarget.style.boxShadow = "none";
+          }}
         >
           →
         </button>
       </div>
 
       {/* Dot nav + counter */}
-      <div style={{
-        flexShrink: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "0.75rem",
-        padding: "0.75rem",
-        borderTop: "1px solid #111",
-        zIndex: 2,
-      }}>
+      <div
+        style={{
+          flexShrink: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "0.75rem",
+          padding: "0.75rem",
+          borderTop: "1px solid #111",
+          zIndex: 2,
+        }}
+      >
         {EXPERIENCES.map((e, i) => (
           <button
             key={e.id}
@@ -161,19 +200,24 @@ export default function Landing() {
             }}
           />
         ))}
-        <span style={{
-          fontFamily: "'VT323', monospace",
-          color: "#444",
-          fontSize: "0.85rem",
-          marginLeft: "0.5rem",
-        }}>
+        <span
+          style={{
+            fontFamily: "'VT323', monospace",
+            color: "#444",
+            fontSize: "0.85rem",
+            marginLeft: "0.5rem",
+          }}
+        >
           {active + 1} / {EXPERIENCES.length}
         </span>
       </div>
 
       {isDebug && (
         <button
-          onClick={() => { reset(); window.location.href = "/"; }}
+          onClick={() => {
+            reset();
+            window.location.href = "/";
+          }}
           style={{
             position: "fixed",
             bottom: 16,
@@ -202,7 +246,7 @@ function Slide({
   exploding,
   onSelect,
 }: {
-  exp: typeof EXPERIENCES[number];
+  exp: (typeof EXPERIENCES)[number];
   index: number;
   isActive: boolean;
   exploding: boolean;
@@ -211,33 +255,39 @@ function Slide({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div style={{
-      width: SLIDE_W,
-      height: "100%",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      position: "relative",
-      overflow: "hidden",
-      flexShrink: 0,
-    }}>
+    <div
+      style={{
+        width: SLIDE_W,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        position: "relative",
+        overflow: "hidden",
+        flexShrink: 0,
+      }}
+    >
       {/* Accent glow background */}
-      <div style={{
-        position: "absolute",
-        inset: 0,
-        background: `radial-gradient(ellipse at 50% 40%, ${exp.accent}12 0%, transparent 60%)`,
-        pointerEvents: "none",
-        opacity: isActive ? 1 : 0,
-        transition: "opacity 0.4s",
-      }} />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: `radial-gradient(ellipse at 50% 40%, ${exp.accent}12 0%, transparent 60%)`,
+          pointerEvents: "none",
+          opacity: isActive ? 1 : 0,
+          transition: "opacity 0.4s",
+        }}
+      />
 
       {/* 3D model — top, full width */}
-      <div style={{
-        width: "100%",
-        flex: "1 1 0",
-        minHeight: 0,
-        position: "relative",
-      }}>
+      <div
+        style={{
+          width: "100%",
+          flex: "1 1 0",
+          minHeight: 0,
+          position: "relative",
+        }}
+      >
         <iframe
           title={exp.sketchfabTitle}
           src={exp.sketchfabSrc}
@@ -254,86 +304,107 @@ function Slide({
 
         {/* Glitch burst on click */}
         {exploding && (
-          <div style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 10,
-            pointerEvents: "none",
-            animation: "glitchBurst 0.5s forwards",
-          }} />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 10,
+              pointerEvents: "none",
+              animation: "glitchBurst 0.5s forwards",
+            }}
+          />
         )}
       </div>
 
       {/* Text + CTA row — below model */}
-      <div style={{
-        width: "60%",
-        alignSelf: "center",
-        flexShrink: 0,
-        padding: "1rem 0 1.25rem",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "flex-end",
-        gap: "2rem",
-        borderTop: `1px solid ${exp.accent}22`,
-        position: "relative",
-        zIndex: 2,
-      }}>
-        {/* Left accent bar */}
-        <div style={{
-          width: 3,
-          alignSelf: "stretch",
-          background: exp.accent,
-          boxShadow: `0 0 10px ${exp.accent}`,
-          borderRadius: 2,
+      <div
+        style={{
+          width: "60%",
+          alignSelf: "center",
           flexShrink: 0,
-        }} />
+          padding: "1rem 0 1.25rem",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "flex-end",
+          gap: "2rem",
+          borderTop: `1px solid ${exp.accent}22`,
+          position: "relative",
+          zIndex: 2,
+        }}
+      >
+        {/* Left accent bar */}
+        <div
+          style={{
+            width: 3,
+            alignSelf: "stretch",
+            background: exp.accent,
+            boxShadow: `0 0 10px ${exp.accent}`,
+            borderRadius: 2,
+            flexShrink: 0,
+          }}
+        />
 
         {/* Text block */}
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{
-            fontFamily: "'VT323', monospace",
-            color: exp.accent,
-            fontSize: "0.75rem",
-            letterSpacing: "0.25em",
-            opacity: 0.7,
-            marginBottom: "0.2rem",
-          }}>
+          <div
+            style={{
+              fontFamily: "'VT323', monospace",
+              color: exp.accent,
+              fontSize: "0.75rem",
+              letterSpacing: "0.25em",
+              opacity: 0.7,
+              marginBottom: "0.2rem",
+            }}
+          >
             OPTION {String(index + 1).padStart(2, "0")} — {exp.tickets} TICKETS
           </div>
 
-          <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", flexWrap: "wrap" }}>
-            <h2 style={{
-              fontFamily: "'VT323', monospace",
-              fontSize: "clamp(2rem, 4vw, 3.5rem)",
-              color: "#fff",
-              lineHeight: 1,
-              margin: 0,
-              textShadow: isActive ? `0 0 30px ${exp.accent}44` : "none",
-              transition: "text-shadow 0.4s",
-            }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+              gap: "0.75rem",
+              flexWrap: "wrap",
+            }}
+          >
+            <h2
+              style={{
+                fontFamily: "'VT323', monospace",
+                fontSize: "clamp(2rem, 4vw, 3.5rem)",
+                color: "#fff",
+                lineHeight: 1,
+                margin: 0,
+                textShadow: isActive ? `0 0 30px ${exp.accent}44` : "none",
+                transition: "text-shadow 0.4s",
+              }}
+            >
               {exp.title}
             </h2>
-            <span style={{
-              fontFamily: "'VT323', monospace",
-              color: exp.accent,
-              fontSize: "clamp(1rem, 1.8vw, 1.4rem)",
-              opacity: 0.7,
-              letterSpacing: "0.06em",
-            }}>
+            <span
+              style={{
+                fontFamily: "'VT323', monospace",
+                color: exp.accent,
+                fontSize: "clamp(1rem, 1.8vw, 1.4rem)",
+                opacity: 0.7,
+                letterSpacing: "0.06em",
+              }}
+            >
               {exp.subtitle}
             </span>
           </div>
 
-          <p style={{
-            fontFamily: "'Special Elite', cursive",
-            color: "#888",
-            fontSize: "clamp(0.75rem, 1.1vw, 0.88rem)",
-            lineHeight: 1.6,
-            margin: "0.4rem 0 0",
-          }}>
+          <p
+            style={{
+              fontFamily: "'Special Elite', cursive",
+              color: "#888",
+              fontSize: "clamp(0.75rem, 1.1vw, 0.88rem)",
+              lineHeight: 1.6,
+              margin: "0.4rem 0 0",
+            }}
+          >
             {exp.description}
             <span style={{ color: "#3a3a3a", marginLeft: "0.5rem" }}>
-              +1 if {YOUR_NAME} comes
+              + {YOUR_NAME}
             </span>
           </p>
         </div>

@@ -73,7 +73,7 @@ export default function ExperienceDetail() {
             opacity: 0.6,
             whiteSpace: "nowrap",
           }}>
-            {exp.tickets} tickets (+1 if {YOUR_NAME} comes)
+            {exp.tickets} tickets (+ {YOUR_NAME})
           </span>
           <a
             href={externalUrl}
@@ -167,7 +167,7 @@ export default function ExperienceDetail() {
           letterSpacing: "0.1em",
           textAlign: "center",
         }}>
-          {exp.tickets} TICKETS &nbsp;·&nbsp; +1 IF {YOUR_NAME.toUpperCase()} COMES
+          {exp.tickets} TICKETS &nbsp;·&nbsp; + {YOUR_NAME.toUpperCase()}
         </div>
 
         <a
