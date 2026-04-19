@@ -5,7 +5,33 @@ import { PASSWORD } from "../config";
 
 const PALETTE = ["#00ffe1", "#ff003c", "#ffe600", "#ff6ec7", "#00ff41", "#a259ff"];
 
-function useDVD(boxW: number, boxH: number) {
+function useViewportSize() {
+  const [size, setSize] = useState({
+    w: window.visualViewport?.width ?? window.innerWidth,
+    h: window.visualViewport?.height ?? window.innerHeight,
+  });
+
+  useEffect(() => {
+    function update() {
+      setSize({
+        w: window.visualViewport?.width ?? window.innerWidth,
+        h: window.visualViewport?.height ?? window.innerHeight,
+      });
+    }
+    window.visualViewport?.addEventListener("resize", update);
+    window.visualViewport?.addEventListener("scroll", update);
+    window.addEventListener("resize", update);
+    return () => {
+      window.visualViewport?.removeEventListener("resize", update);
+      window.visualViewport?.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  return size;
+}
+
+function useDVD(boxW: number, boxH: number, vpW: number, vpH: number) {
   const [pos, setPos] = useState({ x: 120, y: 80 });
 
   const [color, setColor] = useState(PALETTE[0]);
@@ -27,14 +53,17 @@ function useDVD(boxW: number, boxH: number) {
       let nvy = v.y;
       let bounced = false;
 
-      if (nx <= 0 || nx + boxW >= window.innerWidth) {
+      const maxX = vpW - boxW;
+      const maxY = vpH - boxH;
+
+      if (nx <= 0 || nx >= maxX) {
         nvx = -nvx;
-        nx = Math.max(0, Math.min(nx, window.innerWidth - boxW));
+        nx = Math.max(0, Math.min(nx, maxX));
         bounced = true;
       }
-      if (ny <= 0 || ny + boxH >= window.innerHeight) {
+      if (ny <= 0 || ny >= maxY) {
         nvy = -nvy;
-        ny = Math.max(0, Math.min(ny, window.innerHeight - boxH));
+        ny = Math.max(0, Math.min(ny, maxY));
         bounced = true;
       }
 
@@ -52,7 +81,7 @@ function useDVD(boxW: number, boxH: number) {
 
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [boxW, boxH]);
+  }, [boxW, boxH, vpW, vpH]);
 
   return { pos, color };
 }
@@ -115,6 +144,7 @@ export default function PasswordGate() {
   const [boxSize, setBoxSize] = useState({ w: 0, h: 0 });
   const mobile = isMobile();
   const BOX_W = mobile ? 272 : 340;
+  const { w: vpW, h: vpH } = useViewportSize();
 
   const isDebug = new URLSearchParams(window.location.search).has("debug");
   const reset = useAuthStore((s) => s.reset);
@@ -125,7 +155,7 @@ export default function PasswordGate() {
     setBoxSize({ w, h });
   }, [BOX_W]);
 
-  const { pos, color } = useDVD(boxSize.w, boxSize.h);
+  const { pos, color } = useDVD(boxSize.w, boxSize.h, vpW, vpH);
 
   function submit() {
     if (input.trim().toLowerCase() === PASSWORD.toLowerCase()) {
