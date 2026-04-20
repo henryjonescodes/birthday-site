@@ -8,7 +8,7 @@ export const EXPERIENCES = [
     description: "Roller coasters, thrill rides, and chaos. Six Flags Great Adventure is right there — a classic birthday adventure (but unfortunately they took down the big roller coaster)",
     url: "https://www.sixflags.com/greatadventure",
     ctaLabel: "Buckle up",
-    tickets: 2,
+    tickets: 3,
     details: {
       location: "Jackson, NJ",
       prep: "Wear sneakers you don't mind losing on a loop. Maybe skip the funnel cake until after.",
@@ -40,7 +40,7 @@ export const EXPERIENCES = [
     description: "You drive real excavators and construction machinery. This one is maybe a bit of a younger crowd but driving a big machine sounds quite intriguing if you ask me",
     url: "https://diggerlandusa.com/faq/",
     ctaLabel: "Dig and Crush",
-    tickets: 2,
+    tickets: 3,
     details: {
       location: "West Berlin, NJ",
       prep: "Closed-toe shoes required. Also required: the confidence to park a bulldozer on your first try.",
